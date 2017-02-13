@@ -5,9 +5,9 @@ using System.Text;
 
 namespace EntitySystem
 {
-	// All components implement this interface.
-	public interface IComponent
-	{
-		int EntityID { get; set; }
-	}
+    // All components implement this interface.
+    public interface IComponent
+    {
+        int EntityID { get; set; }
+    }
 }

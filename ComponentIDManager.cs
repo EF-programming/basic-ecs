@@ -5,56 +5,56 @@ using System.Text;
 
 namespace EntitySystem
 {
-	// Assigns a unique integer ID to each component type.
-	class ComponentIDManager
-	{
-		#region Singleton
-		private static readonly ComponentIDManager instance = new ComponentIDManager();
+    // Assigns a unique integer ID to each component type.
+    class ComponentIDManager
+    {
+        #region Singleton
+        private static readonly ComponentIDManager instance = new ComponentIDManager();
 
-		private ComponentIDManager() { }
+        private ComponentIDManager() { }
 
-		public static ComponentIDManager Instance
-		{
-			get
-			{
-				return instance;
-			}
-		}
-		#endregion
+        public static ComponentIDManager Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+        #endregion
 
-		Dictionary<Type, int> componentTypeIDs = new Dictionary<Type, int>();
-		
-		// The first assigned ID is 1. Component Types never get an ID of 0, because 0 is a value returned by the 
-		// dictionary's TryGetValue() method when the Type is not found.
-		int id = 0;
+        Dictionary<Type, int> componentTypeIDs = new Dictionary<Type, int>();
 
-		private int addComponentTypeID(Type componentType)
-		{
-			componentTypeIDs.Add(componentType, ++id);
-			return id;
-		}
+        // The first assigned ID is 1. Component Types never get an ID of 0, because 0 is a value returned by the 
+        // dictionary's TryGetValue() method when the Type is not found.
+        int id = 0;
 
-		public int getComponentTypeID(IComponent component)
-		{
-			return getComponentTypeID(component.GetType());
-		}
+        private int addComponentTypeID(Type componentType)
+        {
+            componentTypeIDs.Add(componentType, ++id);
+            return id;
+        }
 
-		public int getComponentTypeID(Type componentType)
-		{
-			int getID;
+        public int getComponentTypeID(IComponent component)
+        {
+            return getComponentTypeID(component.GetType());
+        }
 
-			componentTypeIDs.TryGetValue(componentType, out getID);
+        public int getComponentTypeID(Type componentType)
+        {
+            int getID;
 
-			if (getID == 0)
-				getID = addComponentTypeID(componentType);
+            componentTypeIDs.TryGetValue(componentType, out getID);
 
-			return getID;
-		}
+            if (getID == 0)
+                getID = addComponentTypeID(componentType);
 
-		public void clear()
-		{
-			id = 0;
-			componentTypeIDs.Clear();
-		}
-	}
+            return getID;
+        }
+
+        public void clear()
+        {
+            id = 0;
+            componentTypeIDs.Clear();
+        }
+    }
 }
